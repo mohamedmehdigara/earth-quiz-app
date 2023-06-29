@@ -1,15 +1,25 @@
 import React from 'react';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import Quiz from './components/Quiz';
 import Learn from './components/Learn';
+import Quiz from './components/Quiz';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
 
-<div className="App">  
+function App() {
+  return (
+    <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/learn" element={<Learn />} />
-          <Route path="/quiz" element={<Quiz />} />
-      </Routes>
-</div>
+        {/* Define your routes using the <Route> component */}
+        <Route exact path="/" element={<Home/>} />
+        <Route path="/learn" element={<Learn/>} />
+        <Route path="/quiz" element={<Quiz/>} />
+        <Route path="/responsiveAppBar" element={<ResponsiveAppBar/>} />
 
-export default App
+
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
