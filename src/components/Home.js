@@ -1,5 +1,5 @@
 import React from "react";
-import ResponsiveAppBar from "../ResponsiveAppBar";
+import ResponsiveAppBar from "./ResponsiveAppBar";
 import {useNavigate} from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
