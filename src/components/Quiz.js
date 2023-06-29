@@ -1,60 +1,63 @@
 import React, { useState } from 'react';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const Quiz = () => {
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [showMessage, setShowMessage] = useState(false);
-  const [message, setMessage] = useState('');
-  const questions = [
+  const [showResult, setShowResult] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [incorrectAnswers, setIncorrectAnswers] = useState(0);
+
+  const quizData = [
     {
       question: 'How many people are on Earth?',
-      choices: ['5 billions', '6 billions', '7 billions'],
-      correctAnswer: '7 billions',
+      choices: ['5 billion', '6 billion', '7 billion'],
+      correctAnswer: '7 billion'
     },
     {
       question: 'How many continents are there?',
-      choices: ['3', '4', '7'],
-      correctAnswer: '7',
+      choices: ['5', '6', '7'],
+      correctAnswer: '7'
     },
     {
       question: 'Which country has Tokyo as its capital?',
       choices: ['South Korea', 'Japan', 'Taiwan'],
-      correctAnswer: 'Japan',
-    },
+      correctAnswer: 'Japan'
+    }
   ];
 
-  const currentQuestion = questions[questionIndex];
-
-  const handleNextQuestion = () => {
-    setQuestionIndex(questionIndex + 1);
-    setShowMessage(false);
-    setMessage('');
-  };
-
-  const handleAnswer = (selectedAnswer) => {
-    if (selectedAnswer === currentQuestion.correctAnswer) {
-      setShowMessage(true);
-      setMessage('Correct!');
+  const handleAnswerClick = (selectedAnswer, correctAnswer) => {
+    if (selectedAnswer === correctAnswer) {
+      setCorrectAnswers(prevCount => prevCount + 1);
     } else {
-      setShowMessage(true);
-      setMessage('Incorrect!');
+      setIncorrectAnswers(prevCount => prevCount + 1);
     }
+    setShowResult(true);
   };
 
   return (
     <div>
-      {currentQuestion && (
+      <h2>Quiz</h2>
+      <Carousel showThumbs={false} infiniteLoop={true} showStatus={false}>
+        {quizData.map((question, index) => (
+          <div key={index}>
+            <h3>{question.question}</h3>
+            <ul>
+              {question.choices.map((choice, choiceIndex) => (
+                <li key={choiceIndex}>
+                  <button onClick={() => handleAnswerClick(choice, question.correctAnswer)}>
+                    {choice}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </Carousel>
+      {showResult && (
         <div>
-          <h2>Question:</h2>
-          <p>{currentQuestion.question}</p>
-          <ul>
-            {currentQuestion.choices.map((choice, index) => (
-              <li key={index}>
-                <button onClick={() => handleAnswer(choice)}>{choice}</button>
-              </li>
-            ))}
-          </ul>
-          <button onClick={handleNextQuestion}>Next Question</button>
-          {showMessage && <p>{message}</p>}
+          <h3>Quiz Result</h3>
+          <p>Correct Answers: {correctAnswers}</p>
+          <p>Incorrect Answers: {incorrectAnswers}</p>
         </div>
       )}
     </div>
