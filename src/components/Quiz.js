@@ -4,9 +4,9 @@ const Quiz = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const questions = [
     // Replace this with your actual array of question objects
-    { question: 'Sample question 1' },
-    { question: 'Sample question 2' },
-    { question: 'Sample question 3' },
+    { question: 'Approximately how many people are on Earth?' },
+    { question: 'How many continents are on Earth?' },
+    { question: 'Which country has Tokyo as its capital?' },
   ];
 
   const currentQuestion = questions[questionIndex];
